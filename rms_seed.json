@@ -1,0 +1,68 @@
+{
+    "project_name": "RMS",
+    "vision": "RMS is a rating management system, built for Dhoom Studios in order to aid their content creation for self and others for long period of time without creative fatugue. Its based on the concept of Mathu- Kathe, which means two ears, one mouth, Hear all, Speak effectively. It has three main components which aids for long term creative content generation for a given concept. Every content thats created should have the following 3 intrinsics:\n1. Truthfullness: Every content that is generated should have references from unbiased sources. It should homage to inspired content.\n2. Entertainment: Every content should be entertaining and engaging for the audience. It will be based on the Navarasa model of emotions.\n   a. Shringara: Aesthetic Pleasure\n   b. Hasya: Joy\n   c. Karuna: Empathy\n   d. Veera: Heroic\n   e. Bhayanaka: Horrific\n   f. Adbhuta: Wonder\n   g. Shanta: Serene\n   h. Bibhatsa: Disgust\n   i. Raudra: Fiery\n   The creator sets an expected emotion from the content and present to users in stages and collects feedback in the form of custom emojis and later converts them into ratings.\n3. Philosophy: Every content should have a philosophical aspect which is beyond these 3 aspects.\n   a. Gender: Male, Female\n   b. Race: Mother tongue association. Chinese, Indian, North Indian, South Indian, etc.\n   c. Religion: Hindu, Muslim, Christian, etc.\n   The content generated should be seen in the above lenses before releasing it to broader public. Make sure the content is not offensive to any of the above lenses.",
+    "reference_links": [
+      {
+        "link": "https://dhoomstudios.in/",
+        "features": [
+          "website to get the aesthetic sense about the project"
+        ]
+      }
+    ],
+    "tech_stack": {
+      "domain": "rms.dhoomstudios.in",
+      "repo_name": "rms-dhoomstudios",
+      "frontend_framework": "NextJS",
+      "backend_framework": "FastAPI",
+      "databases": [
+        "POstgres"
+      ],
+      "team_members": [
+        "Arjun",
+        "Abhishek"
+      ],
+      "deployment_option": "Docker"
+    },
+    "database_schema": {
+      "tables": [
+        {
+          "name": "MarketingProjects",
+          "fields": [
+            {
+              "name": "dummy",
+              "type": "string",
+              "required": true,
+              "description": "Please form your own db schema based on the project vision and user stories"
+            }
+          ],
+          "relationships": []
+        }
+      ]
+    },
+    "user_stories": [
+      "As an admin, I want to input the project name and vision so that I can clearly define the purpose and goals of the RMS project.",
+      "As a designer, I want to upload reference links for logos and design assets so that I can ensure the branding of the RMS matches expectations.",
+      "As a user, I want to generate ratings-based visual content (images, voice notes, videos) so that I can enhance feedback communication.",
+      "As a database manager, I want to integrate all digital assets (ratings, timestamps, and metadata) so that I can centralize and streamline the data structure.",
+      "As a marketing team member, I want to schedule and track social media posts linked to rating campaigns so that I can monitor and optimize engagement."
+    ],
+    "id": "1732462616728-rms",
+    "coding_instructions": [
+      "1. The tables are present in kaas.db sqlite file at the root of the project.",
+      "2. Use NextJS and FastAPI for frontend and backend respectively.",
+      "3. Use /frontend and /backend folders for frontend and backend respectively.",
+      "4. Create docker compose file but run locally to test the app.",
+      "5. Use SOLID principles for development. Make app pages with shared components where possible. keep the length short",
+      "6. Create /docs for documentation.",
+      "7. Create good README.md file helping user to setup and run the app locally and deploy the app in docker.",
+      "8. Use shadcn/ui for components",
+      "9. Make app shortcuts for common tasks.",
+      "10. Use proper naming conventions for variables, functions, components, etc.",
+      "11. Use tailwind css for styling.",
+      "12. Add terminal commands to setup for windows, linux and mac using sh files in /scripts folder.Name them appropriately.",
+      "13. Add units for critical functions, implement functional tests for critical flows, load test for performance.",
+      "14. Provide step by step instructions for web based tasks like creating github repo,adding team members to repo, creating discord hooks etc.,",
+      "15. Dont hardcode any values. All values should be able to be configured from file or extracted to environment variables or config files.",
+      "16. Implement minimum viable product for the project."  
+  ]
+  }
