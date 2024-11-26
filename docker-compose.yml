@@ -1,37 +1,23 @@
 version: '3.8'
 
 services:
-  frontend:
+  rms-app:
     build:
-      context: ./frontend
+      context: .
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
     ports:
-      - "3000:3000"
+      - "8056:8056"
+      - "8057:8057"
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
-      - /app/.next
+      - rms-db-volume:/app/data
     environment:
-      - NODE_ENV=development
-      - NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
-    depends_on:
-      - backend
-
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./backend:/app
-      - ./backend/uploads:/app/uploads
-    environment:
-      - DEBUG=True
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/rms
-      - SECRET_KEY=your-secret-key-here
-      - ALLOWED_ORIGINS=http://localhost:3000
-      - LOG_LEVEL=INFO
+      NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/rms
+      SECRET_KEY: your-secret-key-here
+      LOG_LEVEL: INFO
+    restart: unless-stopped
     depends_on:
       - db
 
@@ -52,6 +38,7 @@ services:
       retries: 5
 
 volumes:
+  rms-db-volume:
   postgres_data:
 
 networks:

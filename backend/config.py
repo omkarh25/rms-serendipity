@@ -9,6 +9,7 @@ import logging
 from functools import lru_cache
 from typing import Optional
 from pydantic_settings import BaseSettings
+from pathlib import Path
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -31,15 +32,15 @@ class Settings(BaseSettings):
     api_prefix: str = "/api/v1"
     
     # Database Settings
-    database_url: str = "sqlite:///./rms.db"  # SQLite database in root directory
+    db_path: Path = Path(__file__).parent.parent / "data" / "rms.db"
+    database_url: str = f"sqlite:///{db_path}"
+
     
     # Security Settings
     secret_key: str = "your-secret-key-here"  # Change in production
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
     
-    # CORS Settings
-    allowed_origins: list = ["http://localhost:3000"]
     
     # File Upload Settings
     upload_folder: str = "uploads"

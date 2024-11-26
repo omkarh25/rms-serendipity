@@ -1,0 +1,84 @@
+name: Docker CI/CD
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    timeout-minutes: 30
+
+    steps:
+      - name: Configure Git
+        run: |
+          git config --global --add safe.directory "*"
+        shell: bash
+
+      - name: Check out the code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Stop and Remove Old Container
+        shell: bash
+        continue-on-error: true
+        run: |
+          docker stop rms-container || echo "Container not running"
+          docker rm rms-container || echo "Container not found"
+          docker images rms-app -q | xargs -r docker rmi -f || echo "Image not found"
+          docker images --filter "dangling=true" -q | xargs -r docker rmi -f || echo "No dangling images"
+
+      - name: Create Docker volumes
+        shell: bash
+        run: |
+          docker volume create rms-db-volume || echo "DB volume already exists"
+
+      - name: Setup volume permissions
+        shell: bash
+        run: |
+          docker run --rm \
+          -v rms-db-volume:/data \
+          --user root \
+          ubuntu:latest \
+          /bin/bash -c "mkdir -p /data && chown -R 1000:1000 /data && chmod 777 /data"
+
+      - name: Build Docker image
+        shell: bash
+        run: |
+          docker build \
+          --build-arg NEXT_PUBLIC_BASE_URL="${NEXT_PUBLIC_BASE_URL}" \
+          -t rms-container:latest \
+          --no-cache \
+          .
+        env:
+          NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+
+
+      - name: Run Docker container
+        shell: bash
+        run: |
+          docker run -d \
+          --name rms-container \
+          -p 8056:8056 \
+          -p 8057:8057 \
+          --restart unless-stopped \
+          -v rms-db-volume:/app/data \
+          -e NEXT_PUBLIC_BASE_URL="${NEXT_PUBLIC_BASE_URL}" \
+          rms-container:latest
+        env:
+          NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+
+      - name: Check container health
+        shell: bash
+        run: |
+          sleep 30
+          if ! docker ps | grep -q "rms-container"; then
+            echo "Container failed to start. Checking logs..."
+            docker logs rms-container --tail 100
+            exit 1
+          fi
+          echo "Container is running. Last 50 log lines:"
+          docker logs rms-container --tail 50
+

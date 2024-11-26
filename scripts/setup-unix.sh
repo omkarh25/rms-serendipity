@@ -27,7 +27,6 @@ if [ ! -f backend/.env ]; then
 DEBUG=True
 DATABASE_URL=postgresql://postgres:postgres@db:5432/rms
 SECRET_KEY=your-secret-key-here
-ALLOWED_ORIGINS=http://localhost:3000
 LOG_LEVEL=INFO
 EOL
 fi
