@@ -7,7 +7,8 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    # runs-on: self-hosted
+    runs-on: ubuntu-latest
     timeout-minutes: 30
 
     steps:
@@ -42,7 +43,7 @@ jobs:
           -v rms-db-volume:/data \
           --user root \
           ubuntu:latest \
-          /bin/bash -c "mkdir -p /data && chown -R 1000:1000 /data && chmod 777 /data"
+          /bin/bash -c "mkdir -p /data && chown -R 1000:1000 /data && chmod 755 /data"
 
       - name: Build Docker image
         shell: bash

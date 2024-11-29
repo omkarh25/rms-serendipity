@@ -59,11 +59,8 @@ WORKDIR /app/backend
 RUN mkdir -p /app/backend
 
 # Create a non-root user
-RUN useradd -m -U app_user && \
+RUN useradd -m -U -u 1000 app_user && \
     chown -R app_user:app_user /app
-
-# Set the writing permissions for the app_user
-RUN chown -R app_user:app_user /app
 
 # Set working directory back to root
 WORKDIR /app

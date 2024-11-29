@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  rms-db-migrate:
+    image: busybox
+    volumes:
+      - ./data:/source:ro
+      - rms-db-volume:/destination/
+    command: >
+      sh -c "cp -r /source/* /destination/ &&
+             chmod -R 755 /destination/"
+
   rms-app:
     build:
       context: .
@@ -21,27 +30,7 @@ services:
     depends_on:
       - db
 
-  db:
-    image: postgres:15-alpine
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=rms
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
 volumes:
   rms-db-volume:
-  postgres_data:
+    external: true
 
-networks:
-  default:
-    name: rms_network
-    driver: bridge
