@@ -23,7 +23,6 @@ services:
       - rms-db-volume:/app/data
     environment:
       NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/rms
       SECRET_KEY: your-secret-key-here
       LOG_LEVEL: INFO
     restart: unless-stopped

@@ -44,7 +44,7 @@ const ProjectsPage = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/projects/');
+      const response = await fetch('https://rms-docs.theserendipity.org/api/v1/projects/');
       if (!response.ok) throw new Error('Failed to fetch projects');
       const data = await response.json();
       setProjects(data);
@@ -58,7 +58,7 @@ const ProjectsPage = () => {
   const handleCreateProject = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/api/v1/projects/', {
+      const response = await fetch('https://rms-docs.theserendipity.org/api/v1/projects/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

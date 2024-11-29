@@ -59,7 +59,7 @@ const RatingsPage = () => {
 
   const fetchRatings = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/ratings');
+      const response = await fetch('https://rms-docs.theserendipity.org/api/v1/ratings');
       if (!response.ok) throw new Error('Failed to fetch ratings');
       const data = await response.json();
       setRatings(data);
@@ -70,7 +70,7 @@ const RatingsPage = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/projects');
+      const response = await fetch('https://rms-docs.theserendipity.org/api/v1/projects');
       if (!response.ok) throw new Error('Failed to fetch projects');
       const data = await response.json();
       setProjects(data);
@@ -82,7 +82,7 @@ const RatingsPage = () => {
   const handleCreateRating = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/api/v1/ratings', {
+      const response = await fetch('https://rms-docs.theserendipity.org/api/v1/ratings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

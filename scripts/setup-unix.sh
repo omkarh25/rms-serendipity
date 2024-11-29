@@ -35,7 +35,7 @@ fi
 if [ ! -f frontend/.env ]; then
     echo "Creating frontend .env file..."
     cat > frontend/.env << EOL
-NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+NEXT_PUBLIC_API_URL=https://rms-docs.theserendipity.org/api/v1
 EOL
 fi
 
@@ -52,9 +52,9 @@ sleep 10
 echo "Setup completed successfully!"
 echo ""
 echo "You can now access:"
-echo "- Frontend: http://localhost:3000"
-echo "- Backend API: http://localhost:8000"
-echo "- API Documentation: http://localhost:8000/docs"
+echo "- Frontend: https://rms-docs.theserendipity.org"
+echo "- Backend API: https://rms-docs.theserendipity.org/api/v1"
+echo "- API Documentation: https://rms-docs.theserendipity.org/docs"
 echo ""
 echo "To stop the services, run: docker-compose down"
 echo "To view logs, run: docker-compose logs -f"
