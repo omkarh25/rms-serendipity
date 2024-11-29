@@ -51,6 +51,14 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     log_format: str = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     
+    # Define all environment variables that your application needs
+    DEBUG: bool = False
+    DATABASE_URL: str = "postgresql://postgres:postgres@db:5432/rms"
+    SECRET_KEY: str = "your-secret-key-here"
+    ALLOWED_ORIGINS: str = "http://localhost:8056"
+    LOG_LEVEL: str = "INFO"
+    NEXT_PUBLIC_BASE_URL: Optional[str] = None
+    
     class Config:
         """Pydantic configuration class."""
         env_file = ".env"

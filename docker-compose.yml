@@ -7,7 +7,8 @@ services:
       - ./data:/source:ro
       - rms-db-volume:/destination/
     command: >
-      sh -c "cp -r /source/* /destination/ &&
+      sh -c "mkdir -p /destination &&
+             cp -r /source/. /destination/ &&
              chmod -R 755 /destination/"
 
   rms-app:
@@ -21,13 +22,9 @@ services:
       - "8057:8057"
     volumes:
       - rms-db-volume:/app/data
-    environment:
-      NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
-      SECRET_KEY: your-secret-key-here
-      LOG_LEVEL: INFO
+    env_file:
+      - .env
     restart: unless-stopped
-    depends_on:
-      - db
 
 volumes:
   rms-db-volume:
